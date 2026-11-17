@@ -13,7 +13,17 @@ Structured values:
 - `DKIM-Signature`, `DomainKey-Signature`, `ARC-Seal` and
   `ARC-Message-Signature`: the tag list, with the base64 blobs apart from the
   rest
+- `X-Forefront-Antispam-Report` and `X-Microsoft-Antispam`: the `KEY:value`
+  pairs of the Microsoft filtering reports
+- `X-Spam-*`, `X-Rspamd-*` and `X-Virus-*`: the verdict word and the
+  `key=value` pairs behind it
+- `X-Originating-IP` and the other headers that name a client address
+- `List-*`, `Feedback-ID` and the other bulk mail headers, with their URIs
 - addresses, dates, message ids, encoded words and `Content-*` parameters
+
+Provider blobs such as `X-Gm-*`, `X-Google-Smtp-Source`,
+`X-Microsoft-Antispam-Message-Info` or `Thread-Index` are matched by prefix
+and kept as one opaque value, so an editor can tone them down.
 
 Everything else becomes a field name and an unstructured value. Folded
 values are joined through white space, so a continuation line is never

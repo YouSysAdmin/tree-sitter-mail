@@ -79,6 +79,30 @@
         },
         {
           "type": "SYMBOL",
+          "name": "header_ms"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "header_spam"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "header_ip"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "header_list"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "header_flag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "header_opaque"
+        },
+        {
+          "type": "SYMBOL",
           "name": "header_other"
         }
       ]
@@ -171,6 +195,66 @@
             {
               "type": "PATTERN",
               "value": "[rR][eE][sS][eE][nN][tT]\\-[cC][cC]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[rR][eE][sS][eE][nN][tT]\\-[sS][eE][nN][dD][eE][rR]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[dD][iI][sS][pP][oO][sS][iI][tT][iI][oO][nN]\\-[nN][oO][tT][iI][fF][iI][cC][aA][tT][iI][oO][nN]\\-[tT][oO]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[rR][eE][tT][uU][rR][nN]\\-[rR][eE][cC][eE][iI][pP][tT]\\-[tT][oO]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[eE][rR][rR][oO][rR][sS]\\-[tT][oO]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[bB][oO][uU][nN][cC][eE][sS]\\-[tT][oO]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[mM][aA][iI][lL]\\-[fF][oO][lL][lL][oO][wW][uU][pP]\\-[tT][oO]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[mM][aA][iI][lL]\\-[rR][eE][pP][lL][yY]\\-[tT][oO]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[eE][nN][vV][eE][lL][oO][pP][eE]\\-[fF][rR][oO][mM]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[eE][nN][vV][eE][lL][oO][pP][eE]\\-[tT][oO]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[oO][rR][iI][gG][iI][nN][aA][lL]\\-[sS][eE][nN][dD][eE][rR]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[oO][rR][iI][gG][iI][nN][aA][lL]\\-[fF][rR][oO][mM]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[fF][aA][iI][lL][eE][dD]\\-[rR][eE][cC][iI][pP][iI][eE][nN][tT][sS]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[sS][eE][nN][dD][eE][rR]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[rR][eE][cC][eE][iI][vV][eE][rR]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[bB][eE][eE][nN][tT][hH][eE][rR][eE]"
             }
           ]
         }
@@ -1267,6 +1351,728 @@
       "content": {
         "type": "PATTERN",
         "value": "[^\\s;=\"]+"
+      }
+    },
+    "header_ms": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "label_ms"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "ms_tag"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ";"
+                  },
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "ms_tag"
+                      },
+                      {
+                        "type": "BLANK"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_eol"
+        }
+      ]
+    },
+    "label_ms": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 1,
+        "content": {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[fF][oO][rR][eE][fF][rR][oO][nN][tT]\\-[aA][nN][tT][iI][sS][pP][aA][mM]\\-[rR][eE][pP][oO][rR][tT]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[fF][oO][rR][eE][fF][rR][oO][nN][tT]\\-[aA][nN][tT][iI][sS][pP][aA][mM]\\-[rR][eE][pP][oO][rR][tT]\\-[uU][nN][tT][rR][uU][sS][tT][eE][dD]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[mM][iI][cC][rR][oO][sS][oO][fF][tT]\\-[aA][nN][tT][iI][sS][pP][aA][mM]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[mM][iI][cC][rR][oO][sS][oO][fF][tT]\\-[aA][nN][tT][iI][sS][pP][aA][mM]\\-[uU][nN][tT][rR][uU][sS][tT][eE][dD]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[mM][iI][cC][rR][oO][sS][oO][fF][tT]\\-[aA][nN][tT][iI][sS][pP][aA][mM]\\-[mM][aA][iI][lL][bB][oO][xX]\\-[dD][eE][lL][iI][vV][eE][rR][yY]"
+            }
+          ]
+        }
+      }
+    },
+    "ms_tag": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "ms_name"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "ms_value"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "ms_name": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "[A-Za-z][A-Za-z0-9_-]*"
+      }
+    },
+    "ms_value": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "ip_address"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "ms_text"
+        }
+      ]
+    },
+    "ms_text": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "[^;\\s][^;\\r\\n]*(?:\\r?\\n[ \\t]+[^;\\r\\n]*)*"
+      }
+    },
+    "header_spam": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "label_spam"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "spam_tag"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "spam_word"
+              }
+            ]
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_eol"
+        }
+      ]
+    },
+    "label_spam": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 1,
+        "content": {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[sS][pP][aA][mM]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[sS][pP][aA][mM]\\-[sS][tT][aA][tT][uU][sS]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[sS][pP][aA][mM]\\-[fF][lL][aA][gG]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[sS][pP][aA][mM]\\-[lL][eE][vV][eE][lL]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[sS][pP][aA][mM]\\-[sS][cC][oO][rR][eE]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[sS][pP][aA][mM]\\-[bB][aA][rR]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[sS][pP][aA][mM]\\-[rR][eE][sS][uU][lL][tT]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[sS][pP][aA][mM]\\-[cC][hH][eE][cC][kK][eE][rR]\\-[vV][eE][rR][sS][iI][oO][nN]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[rR][sS][pP][aA][mM][dD]\\-[sS][cC][oO][rR][eE]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[rR][sS][pP][aA][mM][dD]\\-[aA][cC][tT][iI][oO][nN]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[rR][sS][pP][aA][mM][dD]\\-[sS][eE][rR][vV][eE][rR]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[rR][sS][pP][aA][mM][dD]\\-[qQ][uU][eE][uU][eE]\\-[iI][dD]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[vV][iI][rR][uU][sS]\\-[sS][cC][aA][nN][nN][eE][dD]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[vV][iI][rR][uU][sS]\\-[sS][tT][aA][tT][uU][sS]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[qQ][uU][aA][rR][aA][nN][tT][iI][nN][eE]\\-[iI][dD]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[mM][sS]\\-[eE][xX][cC][hH][aA][nN][gG][eE]\\-[oO][rR][gG][aA][nN][iI][zZ][aA][tT][iI][oO][nN]\\-[sS][cC][lL]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[mM][sS]\\-[eE][xX][cC][hH][aA][nN][gG][eE]\\-[oO][rR][gG][aA][nN][iI][zZ][aA][tT][iI][oO][nN]\\-[pP][cC][lL]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[mM][sS]\\-[eE][xX][cC][hH][aA][nN][gG][eE]\\-[oO][rR][gG][aA][nN][iI][zZ][aA][tT][iI][oO][nN]\\-[aA][uU][tT][hH][aA][sS]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[mM][sS]\\-[eE][xX][cC][hH][aA][nN][gG][eE]\\-[oO][rR][gG][aA][nN][iI][zZ][aA][tT][iI][oO][nN]\\-[aA][uU][tT][hH][mM][eE][cC][hH][aA][nN][iI][sS][mM]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[mM][sS]\\-[eE][xX][cC][hH][aA][nN][gG][eE]\\-[oO][rR][gG][aA][nN][iI][zZ][aA][tT][iI][oO][nN]\\-[aA][uU][tT][hH][sS][oO][uU][rR][cC][eE]"
+            }
+          ]
+        }
+      }
+    },
+    "spam_tag": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "spam_name"
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "SYMBOL",
+          "name": "spam_value"
+        }
+      ]
+    },
+    "spam_name": {
+      "type": "SYMBOL",
+      "name": "_spam_word"
+    },
+    "spam_value": {
+      "type": "SYMBOL",
+      "name": "_spam_word"
+    },
+    "spam_word": {
+      "type": "SYMBOL",
+      "name": "_spam_word"
+    },
+    "_spam_word": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "[^\\s=]+"
+      }
+    },
+    "header_ip": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "label_ip"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "ip_address"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "comment"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "ip_text"
+              }
+            ]
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_eol"
+        }
+      ]
+    },
+    "label_ip": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 1,
+        "content": {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[oO][rR][iI][gG][iI][nN][aA][tT][iI][nN][gG]\\-[iI][pP]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[oO][rR][iI][gG][iI][nN][aA][tT][iI][nN][gG]\\-[iI][pP]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[sS][eE][nN][dD][eE][rR]\\-[iI][pP]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[sS][oO][uU][rR][cC][eE]\\-[iI][pP]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[sS][oO][uU][rR][cC][eE][iI][pP]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[cC][lL][iI][eE][nN][tT]\\-[iI][pP]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[rR][eE][mM][oO][tT][eE]\\-[iI][pP]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[rR][eE][aA][lL]\\-[iI][pP]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[pP][eE][eE][rR]\\-[iI][pP]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[cC][oO][nN][nN][eE][cC][tT][iI][nN][gG]\\-[iI][pP]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[fF][oO][rR][wW][aA][rR][dD][eE][dD]\\-[fF][oO][rR]"
+            }
+          ]
+        }
+      }
+    },
+    "ip_text": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "[^\\s()]+"
+      }
+    },
+    "header_list": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "label_list"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "list_uri"
+              },
+              {
+                "type": "STRING",
+                "value": ","
+              },
+              {
+                "type": "SYMBOL",
+                "name": "list_text"
+              }
+            ]
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_eol"
+        }
+      ]
+    },
+    "label_list": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 1,
+        "content": {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "PATTERN",
+              "value": "[lL][iI][sS][tT]\\-[A-Za-z0-9_-]+"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[fF][eE][eE][dD][bB][aA][cC][kK]\\-[iI][dD]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[fF][eE][eE][dD][bB][aA][cC][kK]\\-[iI][dD]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[rR][eE][pP][oO][rR][tT]\\-[aA][bB][uU][sS][eE]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[aA][bB][uU][sS][eE]\\-[rR][eE][pP][oO][rR][tT][sS]\\-[tT][oO]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[cC][sS][aA]\\-[cC][oO][mM][pP][lL][aA][iI][nN][tT][sS]"
+            }
+          ]
+        }
+      }
+    },
+    "list_uri": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "<"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "uri"
+        },
+        {
+          "type": "STRING",
+          "value": ">"
+        }
+      ]
+    },
+    "uri": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "[^<>\\s]+"
+      }
+    },
+    "list_text": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "[^\\s<>,]+"
+      }
+    },
+    "header_flag": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "label_flag"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "flag_value"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_eol"
+        }
+      ]
+    },
+    "label_flag": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 1,
+        "content": {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "PATTERN",
+              "value": "[pP][rR][eE][cC][eE][dD][eE][nN][cC][eE]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[aA][uU][tT][oO]\\-[sS][uU][bB][mM][iI][tT][tT][eE][dD]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[sS][eE][nN][sS][iI][tT][iI][vV][iI][tT][yY]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[iI][mM][pP][oO][rR][tT][aA][nN][cC][eE]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[pP][rR][iI][oO][rR][iI][tT][yY]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[mM][sS][mM][aA][iI][lL]\\-[pP][rR][iI][oO][rR][iI][tT][yY]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[mM][sS]\\-[hH][aA][sS]\\-[aA][tT][tT][aA][cC][hH]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[aA][uU][tT][oO]\\-[rR][eE][sS][pP][oO][nN][sS][eE]\\-[sS][uU][pP][pP][rR][eE][sS][sS]"
+            }
+          ]
+        }
+      }
+    },
+    "flag_value": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "[^\\s]+"
+      }
+    },
+    "header_opaque": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "label_opaque"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "opaque"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_eol"
+        }
+      ]
+    },
+    "label_opaque": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 1,
+        "content": {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[gG][mM]\\-[A-Za-z0-9_-]+"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[gG][oO][oO][gG][lL][eE]\\-[sS][mM][tT][pP]\\-[A-Za-z0-9_-]+"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[sS][oO][nN][iI][cC]\\-[A-Za-z0-9_-]+"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[yY][mM][aA][iI][lL]\\-[A-Za-z0-9_-]+"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[pP][rR][oO][oO][fF][pP][oO][iI][nN][tT]\\-[A-Za-z0-9_-]+"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[mM][iI][mM][eE][cC][aA][sS][tT]\\-[A-Za-z0-9_-]+"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[bB][aA][rR][rR][aA][cC][uU][dD][aA]\\-[A-Za-z0-9_-]+"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[sS][gG]\\-[A-Za-z0-9_-]+"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[mM][aA][iI][lL][gG][uU][nN]\\-[A-Za-z0-9_-]+"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[mM][cC]\\-[A-Za-z0-9_-]+"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[sS][eE][sS]\\-[A-Za-z0-9_-]+"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[zZ][oO][hH][oO][mM][aA][iI][lL]\\-[A-Za-z0-9_-]+"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[yY][aA][nN][dD][eE][xX]\\-[A-Za-z0-9_-]+"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[mM][aA][iI][lL][rR][uU]\\-[A-Za-z0-9_-]+"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[aA][mM][aA][zZ][oO][nN]\\-[A-Za-z0-9_-]+"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[mM][sS]\\-[eE][xX][cC][hH][aA][nN][gG][eE]\\-[cC][rR][oO][sS][sS][tT][eE][nN][aA][nN][tT]\\-[A-Za-z0-9_-]+"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[mM][sS]\\-[oO][fF][fF][iI][cC][eE]365\\-[A-Za-z0-9_-]+"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[mM][iI][cC][rR][oO][sS][oO][fF][tT]\\-[aA][nN][tT][iI][sS][pP][aA][mM]\\-[mM][eE][sS][sS][aA][gG][eE]\\-[iI][nN][fF][oO]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[mM][sS]\\-[eE][xX][cC][hH][aA][nN][gG][eE]\\-[oO][rR][gG][aA][nN][iI][zZ][aA][tT][iI][oO][nN]\\-[nN][eE][tT][wW][oO][rR][kK]\\-[mM][eE][sS][sS][aA][gG][eE]\\-[iI][dD]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[mM][sS]\\-[eE][xX][cC][hH][aA][nN][gG][eE]\\-[tT][rR][aA][nN][sS][pP][oO][rR][tT]\\-[cC][rR][oO][sS][sS][tT][eE][nN][aA][nN][tT][hH][eE][aA][dD][eE][rR][sS][sS][tT][aA][mM][pP][eE][dD]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[tT][hH][rR][eE][aA][dD]\\-[iI][nN][dD][eE][xX]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[eE][nN][tT][iI][tT][yY]\\-[iI][dD]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[xX]\\-[aA][tT][tT][aA][cC][hH][mM][eE][nN][tT]\\-[iI][dD]"
+            }
+          ]
+        }
+      }
+    },
+    "opaque": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "[^ \\t\\r\\n][^\\r\\n]*(?:\\r?\\n[ \\t]+[^\\r\\n]*)*"
       }
     },
     "header_other": {

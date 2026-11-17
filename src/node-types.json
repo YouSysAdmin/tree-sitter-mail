@@ -234,6 +234,94 @@
     }
   },
   {
+    "type": "header_flag",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "flag_value",
+          "named": true
+        },
+        {
+          "type": "label_flag",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "header_ip",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "ip_address",
+          "named": true
+        },
+        {
+          "type": "ip_text",
+          "named": true
+        },
+        {
+          "type": "label_ip",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "header_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "label_list",
+          "named": true
+        },
+        {
+          "type": "list_text",
+          "named": true
+        },
+        {
+          "type": "list_uri",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "header_ms",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "label_ms",
+          "named": true
+        },
+        {
+          "type": "ms_tag",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "header_msgid",
     "named": true,
     "fields": {},
@@ -247,6 +335,25 @@
         },
         {
           "type": "msgid",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "header_opaque",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "label_opaque",
+          "named": true
+        },
+        {
+          "type": "opaque",
           "named": true
         }
       ]
@@ -308,6 +415,29 @@
         },
         {
           "type": "signature_tag",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "header_spam",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "label_spam",
+          "named": true
+        },
+        {
+          "type": "spam_tag",
+          "named": true
+        },
+        {
+          "type": "spam_word",
           "named": true
         }
       ]
@@ -388,7 +518,27 @@
           "named": true
         },
         {
+          "type": "header_flag",
+          "named": true
+        },
+        {
+          "type": "header_ip",
+          "named": true
+        },
+        {
+          "type": "header_list",
+          "named": true
+        },
+        {
+          "type": "header_ms",
+          "named": true
+        },
+        {
           "type": "header_msgid",
+          "named": true
+        },
+        {
+          "type": "header_opaque",
           "named": true
         },
         {
@@ -404,11 +554,30 @@
           "named": true
         },
         {
+          "type": "header_spam",
+          "named": true
+        },
+        {
           "type": "header_spf",
           "named": true
         },
         {
           "type": "header_subject",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "list_uri",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "uri",
           "named": true
         }
       ]
@@ -466,7 +635,27 @@
           "named": true
         },
         {
+          "type": "header_flag",
+          "named": true
+        },
+        {
+          "type": "header_ip",
+          "named": true
+        },
+        {
+          "type": "header_list",
+          "named": true
+        },
+        {
+          "type": "header_ms",
+          "named": true
+        },
+        {
           "type": "header_msgid",
+          "named": true
+        },
+        {
+          "type": "header_opaque",
           "named": true
         },
         {
@@ -482,6 +671,10 @@
           "named": true
         },
         {
+          "type": "header_spam",
+          "named": true
+        },
+        {
           "type": "header_spf",
           "named": true
         },
@@ -491,6 +684,54 @@
         }
       ]
     }
+  },
+  {
+    "type": "ms_name",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "ms_tag",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "ms_name",
+          "named": true
+        },
+        {
+          "type": "ms_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "ms_value",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "ip_address",
+          "named": true
+        },
+        {
+          "type": "ms_text",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "opaque",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "param_name",
@@ -622,6 +863,45 @@
     }
   },
   {
+    "type": "spam_name",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "spam_tag",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "spam_name",
+          "named": true
+        },
+        {
+          "type": "spam_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "spam_value",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "spam_word",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "tag_name",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "trace",
     "named": true,
     "fields": {},
@@ -674,6 +954,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "unstructured",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "(",
@@ -744,7 +1029,15 @@
     "named": true
   },
   {
+    "type": "flag_value",
+    "named": true
+  },
+  {
     "type": "ip_address",
+    "named": true
+  },
+  {
+    "type": "ip_text",
     "named": true
   },
   {
@@ -764,7 +1057,27 @@
     "named": true
   },
   {
+    "type": "label_flag",
+    "named": true
+  },
+  {
+    "type": "label_ip",
+    "named": true
+  },
+  {
+    "type": "label_list",
+    "named": true
+  },
+  {
+    "type": "label_ms",
+    "named": true
+  },
+  {
     "type": "label_msgid",
+    "named": true
+  },
+  {
+    "type": "label_opaque",
     "named": true
   },
   {
@@ -780,6 +1093,10 @@
     "named": true
   },
   {
+    "type": "label_spam",
+    "named": true
+  },
+  {
     "type": "label_spf",
     "named": true
   },
@@ -788,7 +1105,15 @@
     "named": true
   },
   {
+    "type": "list_text",
+    "named": true
+  },
+  {
     "type": "mime_type",
+    "named": true
+  },
+  {
+    "type": "ms_text",
     "named": true
   },
   {
@@ -804,10 +1129,6 @@
     "named": true
   },
   {
-    "type": "tag_name",
-    "named": true
-  },
-  {
     "type": "tag_value",
     "named": true
   },
@@ -820,7 +1141,7 @@
     "named": true
   },
   {
-    "type": "unstructured",
+    "type": "uri",
     "named": true
   }
 ]

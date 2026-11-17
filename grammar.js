@@ -24,7 +24,14 @@ const FOLDED = /[^ \t\r\n][^\r\n]*(?:\r?\n[ \t]+[^\r\n]*)*/;
 function ci(word) {
   return new RegExp(
     [...word]
-      .map((c) => (/[a-zA-Z]/.test(c) ? `[${c.toLowerCase()}${c.toUpperCase()}]` : `\\${c}`))
+      .map((c) => {
+        if (/[a-zA-Z]/.test(c)) {
+          return `[${c.toLowerCase()}${c.toUpperCase()}]`;
+        }
+
+        // Digits must stay plain, an escaped one reads as a back reference.
+        return /[0-9]/.test(c) ? c : `\\${c}`;
+      })
       .join(''),
   );
 }
@@ -37,6 +44,16 @@ function ci(word) {
  */
 function label(...words) {
   return token(prec(1, choice(...words.map(ci))));
+}
+
+/**
+ * A label token matching any field name that starts with the prefix.
+ *
+ * @param {string} word
+ * @returns {RegExp}
+ */
+function prefix(word) {
+  return new RegExp(ci(word).source + '[A-Za-z0-9_-]+');
 }
 
 /**
@@ -72,6 +89,12 @@ module.exports = grammar({
         $.header_spf,
         $.header_signature,
         $.header_content,
+        $.header_ms,
+        $.header_spam,
+        $.header_ip,
+        $.header_list,
+        $.header_flag,
+        $.header_opaque,
         $.header_other,
       ),
 
@@ -94,6 +117,21 @@ module.exports = grammar({
         'Resent-From',
         'Resent-To',
         'Resent-Cc',
+        'Resent-Sender',
+        'Disposition-Notification-To',
+        'Return-Receipt-To',
+        'Errors-To',
+        'Bounces-To',
+        'Mail-Followup-To',
+        'Mail-Reply-To',
+        'X-Envelope-From',
+        'X-Envelope-To',
+        'X-Original-Sender',
+        'X-Original-From',
+        'X-Failed-Recipients',
+        'X-Sender',
+        'X-Receiver',
+        'X-BeenThere',
       ),
 
     address_list: ($) => seq($.mailbox, repeat(seq(',', $.mailbox))),
@@ -232,6 +270,167 @@ module.exports = grammar({
     content_value: ($) => $._content_word,
 
     _content_word: (_$) => token(/[^\s;="]+/),
+
+    // Microsoft filtering reports, a list of KEY:value pairs
+
+    header_ms: ($) => seq($.label_ms, ':', semiSep($.ms_tag), $._eol),
+
+    label_ms: (_$) =>
+      label(
+        'X-Forefront-Antispam-Report',
+        'X-Forefront-Antispam-Report-Untrusted',
+        'X-Microsoft-Antispam',
+        'X-Microsoft-Antispam-Untrusted',
+        'X-Microsoft-Antispam-Mailbox-Delivery',
+      ),
+
+    ms_tag: ($) => seq($.ms_name, ':', optional($.ms_value)),
+
+    ms_name: (_$) => token(/[A-Za-z][A-Za-z0-9_-]*/),
+
+    ms_value: ($) => choice($.ip_address, $.ms_text),
+
+    ms_text: (_$) => token(/[^;\s][^;\r\n]*(?:\r?\n[ \t]+[^;\r\n]*)*/),
+
+    // Spam and virus verdicts, a verdict word and key=value pairs
+
+    header_spam: ($) => seq($.label_spam, ':', repeat(choice($.spam_tag, $.spam_word)), $._eol),
+
+    label_spam: (_$) =>
+      label(
+        'X-Spam',
+        'X-Spam-Status',
+        'X-Spam-Flag',
+        'X-Spam-Level',
+        'X-Spam-Score',
+        'X-Spam-Bar',
+        'X-Spam-Result',
+        'X-Spam-Checker-Version',
+        'X-Rspamd-Score',
+        'X-Rspamd-Action',
+        'X-Rspamd-Server',
+        'X-Rspamd-Queue-Id',
+        'X-Virus-Scanned',
+        'X-Virus-Status',
+        'X-Quarantine-ID',
+        'X-MS-Exchange-Organization-SCL',
+        'X-MS-Exchange-Organization-PCL',
+        'X-MS-Exchange-Organization-AuthAs',
+        'X-MS-Exchange-Organization-AuthMechanism',
+        'X-MS-Exchange-Organization-AuthSource',
+      ),
+
+    spam_tag: ($) => seq($.spam_name, '=', $.spam_value),
+
+    spam_name: ($) => $._spam_word,
+
+    spam_value: ($) => $._spam_word,
+
+    spam_word: ($) => $._spam_word,
+
+    _spam_word: (_$) => token(/[^\s=]+/),
+
+    // Headers that name the machine a message came from
+
+    header_ip: ($) => seq($.label_ip, ':', repeat(choice($.ip_address, $.comment, $.ip_text)), $._eol),
+
+    label_ip: (_$) =>
+      label(
+        'X-Originating-IP',
+        'X-Originating-Ip',
+        'X-Sender-IP',
+        'X-Source-IP',
+        'X-SourceIP',
+        'X-Client-IP',
+        'X-Remote-IP',
+        'X-Real-IP',
+        'X-Peer-IP',
+        'X-Connecting-IP',
+        'X-Forwarded-For',
+      ),
+
+    ip_text: (_$) => token(/[^\s()]+/),
+
+    // Bulk mail, the addresses and URIs offered to the reader
+
+    header_list: ($) => seq($.label_list, ':', repeat(choice($.list_uri, ',', $.list_text)), $._eol),
+
+    label_list: (_$) =>
+      token(
+        prec(
+          1,
+          choice(
+            prefix('List-'),
+            ci('Feedback-ID'),
+            ci('X-Feedback-ID'),
+            ci('X-Report-Abuse'),
+            ci('Abuse-Reports-To'),
+            ci('X-CSA-Complaints'),
+          ),
+        ),
+      ),
+
+    list_uri: ($) => seq('<', $.uri, '>'),
+
+    uri: (_$) => token(/[^<>\s]+/),
+
+    list_text: (_$) => token(/[^\s<>,]+/),
+
+    // Flags a client or a filter sets
+
+    header_flag: ($) => seq($.label_flag, ':', repeat($.flag_value), $._eol),
+
+    label_flag: (_$) =>
+      label(
+        'Precedence',
+        'Auto-Submitted',
+        'Sensitivity',
+        'Importance',
+        'X-Priority',
+        'X-MSMail-Priority',
+        'X-MS-Has-Attach',
+        'X-Auto-Response-Suppress',
+      ),
+
+    flag_value: (_$) => token(/[^\s]+/),
+
+    // Values with nothing to read in them, kept out of the way
+
+    header_opaque: ($) => seq($.label_opaque, ':', optional($.opaque), $._eol),
+
+    label_opaque: (_$) =>
+      token(
+        prec(
+          1,
+          choice(
+            prefix('X-Gm-'),
+            prefix('X-Google-Smtp-'),
+            prefix('X-Sonic-'),
+            prefix('X-YMail-'),
+            prefix('X-Proofpoint-'),
+            prefix('X-Mimecast-'),
+            prefix('X-Barracuda-'),
+            prefix('X-SG-'),
+            prefix('X-Mailgun-'),
+            prefix('X-MC-'),
+            prefix('X-SES-'),
+            prefix('X-ZohoMail-'),
+            prefix('X-Yandex-'),
+            prefix('X-Mailru-'),
+            prefix('X-Amazon-'),
+            prefix('X-MS-Exchange-CrossTenant-'),
+            prefix('X-MS-Office365-'),
+            ci('X-Microsoft-Antispam-Message-Info'),
+            ci('X-MS-Exchange-Organization-Network-Message-Id'),
+            ci('X-MS-Exchange-Transport-CrossTenantHeadersStamped'),
+            ci('Thread-Index'),
+            ci('X-Entity-ID'),
+            ci('X-Attachment-Id'),
+          ),
+        ),
+      ),
+
+    opaque: (_$) => token(FOLDED),
 
     // Anything else
 

@@ -201,9 +201,9 @@ X-Gm-Message-State: AAAAAbbbbbCCCCCdddddEEEEEfffff
     (header_msgid
       (label_msgid)
       (msgid))
-    (header_other
-      (label_other)
-      (unstructured))))
+    (header_opaque
+      (label_opaque)
+      (opaque))))
 
 ==============================
 a multipart body with part headers
@@ -244,3 +244,208 @@ Dear team,
   (body_line)
   (mime_part
     (boundary)))
+
+==============================
+microsoft filtering reports
+==============================
+X-Forefront-Antispam-Report: CIP:203.0.113.41;CTRY:US;LANG:en;SCL:1;SRV:;
+ IPV:NLI;SFV:NSPM;H:relay.example.com;PTR:relay.example.com;CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024);DIR:INB;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|82310400026|1800799024;
+X-MS-Exchange-Organization-SCL: 1
+X-MS-Exchange-Organization-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 18:11:26.1234
+X-MS-Exchange-Organization-Network-Message-Id: 0a1b2c3d-4e5f-6071-8293-a4b5c6d7e8f9
+
+---
+
+(source_file
+  (headers
+    (header_ms
+      (label_ms)
+      (ms_tag
+        (ms_name)
+        (ms_value
+          (ip_address)))
+      (ms_tag
+        (ms_name)
+        (ms_value
+          (ms_text)))
+      (ms_tag
+        (ms_name)
+        (ms_value
+          (ms_text)))
+      (ms_tag
+        (ms_name)
+        (ms_value
+          (ms_text)))
+      (ms_tag
+        (ms_name))
+      (ms_tag
+        (ms_name)
+        (ms_value
+          (ms_text)))
+      (ms_tag
+        (ms_name)
+        (ms_value
+          (ms_text)))
+      (ms_tag
+        (ms_name)
+        (ms_value
+          (ms_text)))
+      (ms_tag
+        (ms_name)
+        (ms_value
+          (ms_text)))
+      (ms_tag
+        (ms_name)
+        (ms_value
+          (ms_text)))
+      (ms_tag
+        (ms_name)
+        (ms_value
+          (ms_text)))
+      (ms_tag
+        (ms_name)
+        (ms_value
+          (ms_text))))
+    (header_ms
+      (label_ms)
+      (ms_tag
+        (ms_name)
+        (ms_value
+          (ms_text)))
+      (ms_tag
+        (ms_name)
+        (ms_value
+          (ms_text))))
+    (header_spam
+      (label_spam)
+      (spam_word))
+    (header_spam
+      (label_spam)
+      (spam_word))
+    (header_opaque
+      (label_opaque)
+      (opaque))
+    (header_opaque
+      (label_opaque)
+      (opaque))))
+
+==============================
+spam and virus verdicts
+==============================
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,HTML_MESSAGE
+ autolearn=ham version=3.4.6
+X-Spam-Level: ***
+X-Spam-Flag: YES
+X-Rspamd-Action: add header
+X-Virus-Scanned: clamav-milter 0.103.11 at mx.example.net
+
+---
+
+(source_file
+  (headers
+    (header_spam
+      (label_spam)
+      (spam_word)
+      (spam_tag
+        (spam_name)
+        (spam_value))
+      (spam_tag
+        (spam_name)
+        (spam_value))
+      (spam_tag
+        (spam_name)
+        (spam_value))
+      (spam_tag
+        (spam_name)
+        (spam_value))
+      (spam_tag
+        (spam_name)
+        (spam_value)))
+    (header_spam
+      (label_spam)
+      (spam_word))
+    (header_spam
+      (label_spam)
+      (spam_word))
+    (header_spam
+      (label_spam)
+      (spam_word)
+      (spam_word))
+    (header_spam
+      (label_spam)
+      (spam_word)
+      (spam_word)
+      (spam_word)
+      (spam_word))))
+
+==============================
+bulk mail headers
+==============================
+List-Unsubscribe: <mailto:unsub@lists.example.org>, <https://example.org/u/1>
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+List-Id: Announcements <announce.lists.example.org>
+Feedback-ID: 1234:campaign:example:mail
+Precedence: bulk
+Auto-Submitted: auto-generated
+
+---
+
+(source_file
+  (headers
+    (header_list
+      (label_list)
+      (list_uri
+        (uri))
+      (list_uri
+        (uri)))
+    (header_list
+      (label_list)
+      (list_text))
+    (header_list
+      (label_list)
+      (list_text)
+      (list_uri
+        (uri)))
+    (header_list
+      (label_list)
+      (list_text))
+    (header_flag
+      (label_flag)
+      (flag_value))
+    (header_flag
+      (label_flag)
+      (flag_value))))
+
+==============================
+client addresses and flags
+==============================
+X-Originating-IP: [203.0.113.41]
+X-Forwarded-For: 203.0.113.41, 198.51.100.7
+X-Google-Smtp-Source: AGHT+IGabcdefghijklmnopqrstuvwxyz0123456789
+X-Priority: 1
+Importance: high
+
+---
+
+(source_file
+  (headers
+    (header_ip
+      (label_ip)
+      (ip_address))
+    (header_ip
+      (label_ip)
+      (ip_address)
+      (ip_text)
+      (ip_address))
+    (header_opaque
+      (label_opaque)
+      (opaque))
+    (header_flag
+      (label_flag)
+      (flag_value))
+    (header_flag
+      (label_flag)
+      (flag_value))))
