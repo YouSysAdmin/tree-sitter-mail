@@ -90,6 +90,7 @@ module.exports = grammar({
         $.header_signature,
         $.header_content,
         $.header_ms,
+        $.header_id,
         $.header_spam,
         $.header_ip,
         $.header_list,
@@ -271,6 +272,25 @@ module.exports = grammar({
 
     _content_word: (_$) => token(/[^\s;="]+/),
 
+    // Identifiers a sending service stamps on a message
+
+    header_id: ($) => seq($.label_id, ':', repeat($.id_value), $._eol),
+
+    label_id: (_$) =>
+      label(
+        'X-Mailyard-Email-Id',
+        'X-Mailyard-Project-Id',
+        'X-Mailyard-Event',
+        'X-Mailyard-Relay-Node',
+        'X-Message-ID',
+        'X-Request-Id',
+        'X-Correlation-Id',
+        'X-PM-Message-Id',
+        'X-Campaign-Id',
+      ),
+
+    id_value: (_$) => token(/[^\s]+/),
+
     // Microsoft filtering reports, a list of KEY:value pairs
 
     header_ms: ($) => seq($.label_ms, ':', semiSep($.ms_tag), $._eol),
@@ -390,6 +410,10 @@ module.exports = grammar({
         'X-MSMail-Priority',
         'X-MS-Has-Attach',
         'X-Auto-Response-Suppress',
+        'X-Mailyard-Sandbox',
+        'X-Mailyard-Sandbox-Retention',
+        'X-Mailyard-Disable-Tracking',
+        'X-Mailyard-Timestamp',
       ),
 
     flag_value: (_$) => token(/[^\s]+/),
@@ -426,6 +450,8 @@ module.exports = grammar({
             ci('Thread-Index'),
             ci('X-Entity-ID'),
             ci('X-Attachment-Id'),
+            ci('X-Mailyard-Signature'),
+            ci('X-Mailyard-Auth'),
           ),
         ),
       ),

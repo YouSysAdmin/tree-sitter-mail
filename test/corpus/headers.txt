@@ -449,3 +449,59 @@ Importance: high
     (header_flag
       (label_flag)
       (flag_value))))
+
+==============================
+identifiers and flags of a sending service
+==============================
+X-Mailyard-Email-Id: 81af718e-f0ae-4780-a0d7-9f05b34dabcc
+X-Mailyard-Project-Id: 0a1b2c3d-4e5f-6071-8293-a4b5c6d7e8f9
+X-Mailyard-Event: delivered
+X-Mailyard-Relay-Node: node-7:5f2e9c1a7b
+X-Mailyard-Sandbox: true
+X-Mailyard-Disable-Tracking: 1
+X-Mailyard-Sandbox-Retention: 7
+X-Mailyard-Signature: sha256=4f1a2b3c4d5e6f708192a3b4c5d6e7f8
+X-Mailer: Mailyard 1.4.0
+List-Unsubscribe: <https://example.org/u/abc>, <mailto:unsub@example.org>
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+
+---
+
+(source_file
+  (headers
+    (header_id
+      (label_id)
+      (id_value))
+    (header_id
+      (label_id)
+      (id_value))
+    (header_id
+      (label_id)
+      (id_value))
+    (header_id
+      (label_id)
+      (id_value))
+    (header_flag
+      (label_flag)
+      (flag_value))
+    (header_flag
+      (label_flag)
+      (flag_value))
+    (header_flag
+      (label_flag)
+      (flag_value))
+    (header_opaque
+      (label_opaque)
+      (opaque))
+    (header_other
+      (label_other)
+      (unstructured))
+    (header_list
+      (label_list)
+      (list_uri
+        (uri))
+      (list_uri
+        (uri)))
+    (header_list
+      (label_list)
+      (list_text))))

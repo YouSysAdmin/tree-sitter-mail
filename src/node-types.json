@@ -146,6 +146,11 @@
     }
   },
   {
+    "type": "flag_value",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "header_address",
     "named": true,
     "fields": {},
@@ -247,6 +252,25 @@
         },
         {
           "type": "label_flag",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "header_id",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "id_value",
+          "named": true
+        },
+        {
+          "type": "label_id",
           "named": true
         }
       ]
@@ -522,6 +546,10 @@
           "named": true
         },
         {
+          "type": "header_id",
+          "named": true
+        },
+        {
           "type": "header_ip",
           "named": true
         },
@@ -567,6 +595,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "id_value",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "list_uri",
@@ -636,6 +669,10 @@
         },
         {
           "type": "header_flag",
+          "named": true
+        },
+        {
+          "type": "header_id",
           "named": true
         },
         {
@@ -1029,10 +1066,6 @@
     "named": true
   },
   {
-    "type": "flag_value",
-    "named": true
-  },
-  {
     "type": "ip_address",
     "named": true
   },
@@ -1058,6 +1091,10 @@
   },
   {
     "type": "label_flag",
+    "named": true
+  },
+  {
+    "type": "label_id",
     "named": true
   },
   {

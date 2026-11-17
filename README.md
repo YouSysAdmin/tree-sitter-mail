@@ -19,6 +19,8 @@ Structured values:
   `key=value` pairs behind it
 - `X-Originating-IP` and the other headers that name a client address
 - `List-*`, `Feedback-ID` and the other bulk mail headers, with their URIs
+- the identifiers and flags a sending service stamps, such as
+  `X-Mailyard-Email-Id` or `X-Mailyard-Sandbox`
 - addresses, dates, message ids, encoded words and `Content-*` parameters
 
 Provider blobs such as `X-Gm-*`, `X-Google-Smtp-Source`,
