@@ -1,0 +1,246 @@
+==============================
+address headers
+==============================
+From: Sender Name <bot@sender.example.com>
+To: inbox@example.org, "Second, Name" <second@example.org>
+Return-Path: <bot@sender.example.com>
+
+---
+
+(source_file
+  (headers
+    (header_address
+      (label_address)
+      (address_list
+        (mailbox
+          (display_name
+            (atom)
+            (atom))
+          (angle_addr
+            (address)))))
+    (header_address
+      (label_address)
+      (address_list
+        (mailbox
+          (address))
+        (mailbox
+          (display_name
+            (quoted_string))
+          (angle_addr
+            (address)))))
+    (header_address
+      (label_address)
+      (address_list
+        (mailbox
+          (angle_addr
+            (address)))))))
+
+==============================
+a received header with clauses and a folded date
+==============================
+Received: from relay.example.com (relay.example.com. [203.0.113.41])
+        by mx.example.net with SMTPS id 41be03b00d2f7-cde0f5b2180sor639
+        for <inbox@example.org>
+        (Example Transport Security);
+        Mon, 16 Nov 2026 18:11:26 -0800 (PST)
+
+---
+
+(source_file
+  (headers
+    (header_received
+      (label_received)
+      (trace
+        (trace_clause
+          (trace_keyword)
+          (trace_value)
+          (comment
+            (comment_text)
+            (ip_address)))
+        (trace_clause
+          (trace_keyword)
+          (trace_value))
+        (trace_clause
+          (trace_keyword)
+          (trace_value))
+        (trace_clause
+          (trace_keyword)
+          (trace_value))
+        (trace_clause
+          (trace_keyword)
+          (angle_addr
+            (address))
+          (comment
+            (comment_text)
+            (comment_text)
+            (comment_text)))
+        (date_time)))))
+
+==============================
+authentication results and an SPF result
+==============================
+Authentication-Results: mx.example.net;
+       dkim=pass header.i=@sender.example.com header.s=20260707;
+       spf=fail (example.net: domain of bot@sender.example.com does not designate 203.0.113.41 as permitted sender) smtp.mailfrom=bot@sender.example.com
+Received-SPF: pass (example.net: best guess record) client-ip=203.0.113.41;
+
+---
+
+(source_file
+  (headers
+    (header_auth
+      (label_auth)
+      (authserv_id)
+      (auth_method
+        (auth_name)
+        (auth_result)
+        (auth_property
+          (property_name)
+          (property_value))
+        (auth_property
+          (property_name)
+          (property_value)))
+      (auth_method
+        (auth_name)
+        (auth_result)
+        (comment
+          (comment_text)
+          (comment_text)
+          (comment_text)
+          (address)
+          (comment_text)
+          (comment_text)
+          (comment_text)
+          (ip_address)
+          (comment_text)
+          (comment_text)
+          (comment_text))
+        (auth_property
+          (property_name)
+          (property_value
+            (address)))))
+    (header_spf
+      (label_spf)
+      (auth_result)
+      (comment
+        (comment_text)
+        (comment_text)
+        (comment_text)
+        (comment_text))
+      (auth_property
+        (property_name)
+        (property_value
+          (ip_address))))))
+
+==============================
+a DKIM signature with folded tags and blobs
+==============================
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sender.example.com; s=20260707; t=1794881486;
+        h=content-type:cc:to:subject:message-id:date:from
+         :to:cc:subject:date;
+        bh=ZZZZyyyyXXXXwwww=;
+        b=Ab12Cd34EfGhIjKlMnOpQrStUvWxYz0123456789abcdefghijklmnopqrstuvwx
+         YZABCDEFGHIJ==
+
+---
+
+(source_file
+  (headers
+    (header_signature
+      (label_signature)
+      (signature_tag
+        (tag_name)
+        (tag_value))
+      (signature_tag
+        (tag_name)
+        (tag_value))
+      (signature_tag
+        (tag_name)
+        (tag_value))
+      (signature_tag
+        (tag_name)
+        (tag_value))
+      (signature_tag
+        (tag_name)
+        (tag_value))
+      (signature_tag
+        (tag_name)
+        (tag_value))
+      (signature_tag
+        (tag_name)
+        (tag_value))
+      (signature_blob
+        (blob_name)
+        (blob_value))
+      (signature_blob
+        (blob_name)
+        (blob_value)))))
+
+==============================
+an encoded subject, a date, a message id and an opaque value
+==============================
+Subject: =?UTF-8?Q?EXAMPLE_=C3=97_Some_School?=
+    =?UTF-8?Q?_short_demo?=
+Date: Mon, 16 Nov 2026 20:11:22 -0600
+Message-ID: <CAHD2efT2KZRgvqBDcsb@mail.example.com>
+X-Gm-Message-State: AAAAAbbbbbCCCCCdddddEEEEEfffff
+    mmmmNNNNooooPPPP
+
+---
+
+(source_file
+  (headers
+    (header_subject
+      (label_subject)
+      (encoded_word)
+      (encoded_word))
+    (header_date
+      (label_date)
+      (date_time))
+    (header_msgid
+      (label_msgid)
+      (msgid))
+    (header_other
+      (label_other)
+      (unstructured))))
+
+==============================
+a multipart body with part headers
+==============================
+Content-Type: multipart/mixed; boundary="0000abcd"
+
+--0000abcd
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Dear team,
+
+--0000abcd--
+
+---
+
+(source_file
+  (headers
+    (header_content
+      (label_content)
+      (mime_type)
+      (parameter
+        (param_name)
+        (param_value
+          (quoted_string)))))
+  (mime_part
+    (boundary)
+    (header_content
+      (label_content)
+      (mime_type)
+      (parameter
+        (param_name)
+        (param_value
+          (quoted_string))))
+    (header_content
+      (label_content)
+      (content_value)))
+  (body_line)
+  (mime_part
+    (boundary)))

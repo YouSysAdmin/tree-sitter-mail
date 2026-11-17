@@ -1,0 +1,17 @@
+{
+  "grammars": [
+    {
+      "name": "mail",
+      "camelcase": "Mail",
+      "scope": "text.mail",
+      "path": ".",
+      "file-types": ["eml"],
+      "injection-regex": "^(mail|eml|email)$"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "Tree-sitter grammar for mail message headers"
+  }
+}
